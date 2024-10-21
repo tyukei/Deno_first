@@ -23,7 +23,7 @@ function handler(req: Request): Response {
               color: #007BFF;
               transform: scale(1.05);
             }
-            p, li, pre {
+            p, li, pre, img, a.button {
               opacity: 0;
               transform: translateX(-50px);
               transition: opacity 0.6s ease, transform 0.6s ease;
@@ -47,12 +47,35 @@ function handler(req: Request): Response {
               border-radius: 4px;
               overflow-x: auto;
             }
+            img {
+              max-width: 200px;
+              border-radius: 8px;
+              margin: 1rem 0;
+            }
+            .button {
+              display: inline-block;
+              padding: 0.8rem 1.5rem;
+              background-color: #007BFF;
+              color: white;
+              text-decoration: none;
+              border-radius: 5px;
+              transition: background-color 0.3s;
+              margin-top: 1.5rem;
+            }
+            .button:hover {
+              background-color: #0056b3;
+            }
           </style>
         </head>
         <body>
           <h1>Denoとは？</h1>
+          <img src="https://raw.githubusercontent.com/denolib/high-res-deno-logo/master/deno_hr_circle.svg" alt="Denoのロゴ">
           <p>Denoは、シンプルでセキュアなモダンなJavaScript/TypeScriptランタイムです。Node.jsの創設者であるRyan Dahlが開発し、Node.jsの設計上の問題点を解決することを目指して作られました。</p>
           
+          <h2>筆者について</h2>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Ryan_Dahl.jpg/440px-Ryan_Dahl.jpg" alt="筆者の写真">
+          <p>筆者はWeb開発者であり、DenoやモダンなJavaScript技術に精通しています。</p>
+  
           <h2>特徴</h2>
           <ul>
             <li><strong>TypeScriptサポート</strong>: DenoはTypeScriptをネイティブでサポートしており、特別な設定なしにTypeScriptコードを実行できます。</li>
@@ -106,16 +129,17 @@ function handler(req: Request): Response {
             <li>チャットアプリ</li>
             <li>Calendlyクローン</li>
           </ul>
+  
+          <a class="button" href="https://deno.land" target="_blank">Deno公式サイトへ</a>
           
           <script>
-            // Scroll effect for paragraphs, list items, and code blocks
-            const elements = document.querySelectorAll('p, li, pre');
+            const elements = document.querySelectorAll('p, li, pre, img, a.button');
             let lastScrollTop = 0;
-            
+  
             window.addEventListener('scroll', () => {
               const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
               const scrollingDown = scrollTop > lastScrollTop;
-              
+  
               elements.forEach(el => {
                 const rect = el.getBoundingClientRect();
                 if (scrollingDown && rect.top < window.innerHeight - 50) {
@@ -127,7 +151,7 @@ function handler(req: Request): Response {
                 }
               });
   
-              lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+              lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
             });
   
             // Trigger the scroll effect on load to show elements already in view
@@ -136,7 +160,7 @@ function handler(req: Request): Response {
         </body>
       </html>
     `;
-    
+  
     return new Response(message, {
       headers: { "Content-Type": "text/html; charset=UTF-8" },
     });
